@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero-Network Hiring | Result</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="result">
+  <div class="shell">
+    <header class="hero-simple">
+      <p class="eyebrow">Result</p>
+      <h1>Assessment outcome</h1>
+      <p class="muted">Your score, grade, and standing for the selected role appear here after the assessment ends.</p>
+    </header>
+
+    <main class="grid-main">
+      <section class="panel">
+        <h2>Candidate result</h2>
+        <div id="resultBox" class="result-box muted">Loading result.</div>
+        <div class="row-actions space-top">
+          <a class="secondary-link" href="start.html">Start a new role check</a>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <h2>My submissions</h2>
+        <div class="inline-row">
+          <input id="historyNricInput" type="text" placeholder="Enter NRIC / FIN" autocomplete="off" maxlength="9">
+          <button id="loadHistoryBtn">Load history</button>
+        </div>
+        <div id="historyBox" class="list-stack muted">No history loaded yet.</div>
+      </aside>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

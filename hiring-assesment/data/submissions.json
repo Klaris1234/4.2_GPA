@@ -1,0 +1,172 @@
+{
+  "submissions": [],
+  "attempts": [
+    {
+      "id": "e8cdf82f-1998-4ecc-8898-ee057661a500",
+      "candidateCode": "C-41BD73",
+      "name": "nani",
+      "email": "nani@gmail.com",
+      "role": "data_analyst",
+      "roleLabel": "Data Analyst",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-21T14:08:47.837Z",
+      "completedAt": "2026-04-21T14:08:58.550Z",
+      "createdAt": "2026-04-21T14:08:47.837Z",
+      "expiresAt": "2026-04-21T14:28:47.837Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-21T14:08:58.549Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-21T14:08:57.860Z",
+      "nric": ""
+    },
+    {
+      "id": "42608377-7656-42fa-ace1-2c9f89259c13",
+      "candidateCode": "C-EB76EB",
+      "name": "nanan",
+      "email": "nandithabvs06@",
+      "role": "data_analyst",
+      "roleLabel": "Data Analyst",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "User left or refreshed the page. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-21T14:29:26.130Z",
+      "completedAt": "2026-04-21T14:29:30.938Z",
+      "createdAt": "2026-04-21T14:29:26.130Z",
+      "expiresAt": "2026-04-21T14:49:26.130Z",
+      "status": "disqualified",
+      "disqualifyReason": "User left or refreshed the page. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "User left or refreshed the page. Automatic zero applied.",
+          "at": "2026-04-21T14:29:30.938Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-21T14:29:26.130Z",
+      "nric": ""
+    },
+    {
+      "id": "0e0d25a1-cf6a-4d4e-93e0-d4cd4b8cad3c",
+      "candidateCode": "C-40F45C",
+      "nric": "S1234567D",
+      "name": "",
+      "email": "",
+      "role": "data_analyst",
+      "roleLabel": "Data Analyst",
+      "answer": "East is the top region. Home is the weakest category. Electronics drives stronger revenue than home, and West underperforms the rest. I would improve West through promotion and inventory planning while raising customer satisfaction in home.",
+      "scores": {
+        "total": 100,
+        "accuracy": 60,
+        "reasoning": 25,
+        "clarity": 20,
+        "strengths": [
+          "Strong task accuracy",
+          "Good reasoning depth",
+          "Clear communication"
+        ],
+        "weaknesses": [
+          "Include clearer data-backed recommendations and complete all required components."
+        ]
+      },
+      "startedAt": "2026-04-21T14:42:51.889Z",
+      "completedAt": "2026-04-21T14:42:52.036Z",
+      "createdAt": "2026-04-21T14:42:51.889Z",
+      "expiresAt": "2026-04-21T15:42:51.889Z",
+      "status": "submitted",
+      "disqualifyReason": null,
+      "violations": [],
+      "lastHeartbeatAt": "2026-04-21T14:42:51.889Z"
+    },
+    {
+      "id": "7b3773e3-026a-4dad-a77a-2c605adf7489",
+      "candidateCode": "C-4FE198",
+      "nric": "T7654321J",
+      "name": "",
+      "email": "",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "No answer submitted."
+        ]
+      },
+      "startedAt": "2026-04-21T14:43:10.892Z",
+      "completedAt": "2026-04-21T14:43:11.081Z",
+      "createdAt": "2026-04-21T14:43:10.892Z",
+      "expiresAt": "2026-04-21T15:43:10.892Z",
+      "status": "submitted",
+      "disqualifyReason": null,
+      "violations": [],
+      "lastHeartbeatAt": "2026-04-21T14:43:10.892Z"
+    },
+    {
+      "id": "1631e583-5750-498c-bc04-4941fa730d32",
+      "candidateCode": "C-328808",
+      "nric": "T0671198C",
+      "name": "",
+      "email": "",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-21T14:48:10.220Z",
+      "completedAt": "2026-04-21T14:48:16.457Z",
+      "createdAt": "2026-04-21T14:48:10.220Z",
+      "expiresAt": "2026-04-21T15:48:10.220Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-21T14:48:16.434Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-21T14:48:15.385Z"
+    }
+  ]
+}

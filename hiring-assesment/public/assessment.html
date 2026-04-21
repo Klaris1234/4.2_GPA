@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero-Network Hiring | Assessment</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="assessment">
+  <div class="shell">
+    <header class="hero-simple assessment-head">
+      <div>
+        <p class="eyebrow">Assessment Mode</p>
+        <h1 id="assessmentTitle">Loading assessment</h1>
+        <p id="assessmentMeta" class="muted"></p>
+      </div>
+      <div class="timer-box">
+        <span>Time remaining</span>
+        <strong id="timerValue">--:--:--</strong>
+      </div>
+    </header>
+
+    <main class="assessment-layout">
+      <section class="panel">
+        <div class="lockdown-banner">
+          Lockdown mode is active. Leaving fullscreen, switching tabs, refreshing, or exiting this page will end the assessment with a zero.
+        </div>
+        <div id="assessmentStatusBox" class="status-box warning">Questions load only after the attempt is verified.</div>
+        <h2>Assessment task</h2>
+        <p id="instructionsBox" class="muted"></p>
+        <div class="dataset-wrap">
+          <table id="datasetTable" class="dataset-table"></table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Your answer</h2>
+        <p class="muted">Submit your answer before the timer ends. A blank submission receives a zero grade.</p>
+        <textarea id="answerInput" placeholder="Write your full answer here."></textarea>
+        <div class="row-actions space-top">
+          <button id="submitAssessmentBtn">Submit assessment</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

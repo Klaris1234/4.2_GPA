@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero-Network Hiring | Candidate Setup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="start">
+  <div class="shell">
+    <header class="hero-simple">
+      <p class="eyebrow">Start Page</p>
+      <h1>Enter your NRIC and choose a role</h1>
+      <p class="muted">Pick the role you want to apply for. We will check whether you are eligible to attempt that role now.</p>
+    </header>
+
+    <main class="grid-main">
+      <section class="panel">
+        <h2>Candidate setup</h2>
+        <div class="form-stack">
+          <label>
+            NRIC / FIN
+            <input id="nricInput" type="text" placeholder="Example: S1234567D" autocomplete="off" maxlength="9">
+          </label>
+          <label>
+            Role applied for
+            <select id="roleSelect"></select>
+          </label>
+          <button id="checkEligibilityBtn">Check eligibility</button>
+          <div id="eligibilityBox" class="status-box muted">Enter your NRIC or FIN and select the role you want to apply for.</div>
+          <button id="continueBtn">Continue to rules</button>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <h2>Before you continue</h2>
+        <div class="rules-box">
+          <ul class="rules-list">
+            <li>Your chosen role is locked for 30 days once an attempt starts.</li>
+            <li>The assessment lasts 1 hour.</li>
+            <li>Different roles have different assessment questions.</li>
+            <li>You will see your final grade after submission.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
