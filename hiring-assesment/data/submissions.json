@@ -167,6 +167,315 @@
         }
       ],
       "lastHeartbeatAt": "2026-04-21T14:48:15.385Z"
+    },
+    {
+      "id": "915f276d-1c4c-4b5f-b0b7-4200a7b70bdf",
+      "candidateCode": "C-1A581E",
+      "nric": "S1035672S",
+      "name": "",
+      "email": "",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T07:51:15.161Z",
+      "completedAt": "2026-04-22T07:51:19.216Z",
+      "createdAt": "2026-04-22T07:51:15.161Z",
+      "expiresAt": "2026-04-22T08:51:15.161Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-22T07:51:19.216Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T07:51:15.161Z"
+    },
+    {
+      "id": "07b376ea-2dbc-4748-ba4e-039ff0daf29b",
+      "candidateCode": "C-9967D8",
+      "nric": "S1035672S",
+      "name": "",
+      "email": "",
+      "role": "product_intern",
+      "roleLabel": "Product Intern",
+      "answer": "i think the shared group budget, because yes",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Good baseline submission"
+        ],
+        "weaknesses": [
+          "Missed key task requirements",
+          "Reasoning needs more depth",
+          "Answer structure can be clearer"
+        ]
+      },
+      "startedAt": "2026-04-22T07:53:40.079Z",
+      "completedAt": "2026-04-22T07:56:26.997Z",
+      "createdAt": "2026-04-22T07:53:40.079Z",
+      "expiresAt": "2026-04-22T08:53:40.079Z",
+      "status": "submitted",
+      "disqualifyReason": null,
+      "violations": [],
+      "lastHeartbeatAt": "2026-04-22T07:56:25.218Z"
+    },
+    {
+      "id": "03d18673-ae7b-47bf-9bcb-28625576359b",
+      "candidateCode": "C-54998C",
+      "nric": "T0859742S",
+      "name": "",
+      "email": "",
+      "role": "product_intern",
+      "roleLabel": "Product Intern",
+      "answer": "uygfdyiw dwivgqds9u beugiws iefgiu",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Good baseline submission"
+        ],
+        "weaknesses": [
+          "Missed key task requirements",
+          "Reasoning needs more depth",
+          "Answer structure can be clearer"
+        ]
+      },
+      "startedAt": "2026-04-22T08:00:49.044Z",
+      "completedAt": "2026-04-22T08:00:57.628Z",
+      "createdAt": "2026-04-22T08:00:49.044Z",
+      "expiresAt": "2026-04-22T09:00:49.044Z",
+      "status": "submitted",
+      "disqualifyReason": null,
+      "violations": [],
+      "lastHeartbeatAt": "2026-04-22T08:00:54.148Z"
+    },
+    {
+      "id": "d574be8f-9c2e-4433-9633-028543c41d7c",
+      "candidateCode": "C-05C123",
+      "nric": "T0859742S",
+      "name": "",
+      "email": "",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T14:52:28.085Z",
+      "completedAt": "2026-04-22T14:52:53.688Z",
+      "createdAt": "2026-04-22T14:52:28.085Z",
+      "expiresAt": "2026-04-22T15:52:28.085Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-22T14:52:53.688Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T14:52:28.085Z"
+    },
+    {
+      "id": "379836ab-eeed-413d-8f18-b76f01e78b2f",
+      "candidateCode": "C-0496A1",
+      "nric": "S2987656G",
+      "name": "",
+      "email": "",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "User left or refreshed. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T14:53:23.999Z",
+      "completedAt": "2026-04-22T14:53:28.898Z",
+      "createdAt": "2026-04-22T14:53:23.999Z",
+      "expiresAt": "2026-04-22T15:53:23.999Z",
+      "status": "disqualified",
+      "disqualifyReason": "User left or refreshed. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "User left or refreshed. Automatic zero applied.",
+          "at": "2026-04-22T14:53:28.898Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T14:53:23.999Z"
+    },
+    {
+      "id": "943ab124-781b-4b96-beea-04a1eee5f000",
+      "candidateCode": "C-B7264F",
+      "nric": "S2987656G",
+      "name": "",
+      "email": "",
+      "role": "data_analyst",
+      "roleLabel": "Data Analyst",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "User left or refreshed. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T14:53:39.912Z",
+      "completedAt": "2026-04-22T14:53:45.317Z",
+      "createdAt": "2026-04-22T14:53:39.912Z",
+      "expiresAt": "2026-04-22T15:53:39.912Z",
+      "status": "disqualified",
+      "disqualifyReason": "User left or refreshed. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "User left or refreshed. Automatic zero applied.",
+          "at": "2026-04-22T14:53:45.317Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T14:53:39.912Z"
+    },
+    {
+      "id": "3b3bae30-85ad-4dfc-b5c6-a7509abb0f98",
+      "candidateCode": "C-1B7203",
+      "nric": "S2987656G",
+      "name": "",
+      "email": "",
+      "role": "product_intern",
+      "roleLabel": "Product Intern",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T14:53:53.794Z",
+      "completedAt": "2026-04-22T14:53:58.990Z",
+      "createdAt": "2026-04-22T14:53:53.794Z",
+      "expiresAt": "2026-04-22T15:53:53.794Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-22T14:53:58.990Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T14:53:53.794Z"
+    },
+    {
+      "id": "0df06a70-98d2-4af9-bd87-da9906d46577",
+      "candidateCode": "C-FE3DC1",
+      "nric": "S2937656G",
+      "name": "",
+      "email": "",
+      "role": "product_intern",
+      "roleLabel": "Product Intern",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T14:56:42.190Z",
+      "completedAt": "2026-04-22T14:56:48.356Z",
+      "createdAt": "2026-04-22T14:56:42.190Z",
+      "expiresAt": "2026-04-22T15:56:42.190Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-22T14:56:48.356Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T14:56:42.190Z"
+    },
+    {
+      "id": "0d321e7c-1ed6-4cec-b5e5-dc56f3446ac3",
+      "candidateCode": "C-E424FC",
+      "nric": "S2937636G",
+      "name": "",
+      "email": "",
+      "role": "product_intern",
+      "roleLabel": "Product Intern",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Window focus lost. Automatic zero applied."
+        ]
+      },
+      "startedAt": "2026-04-22T15:00:07.296Z",
+      "completedAt": "2026-04-22T15:00:10.490Z",
+      "createdAt": "2026-04-22T15:00:07.296Z",
+      "expiresAt": "2026-04-22T16:00:07.296Z",
+      "status": "disqualified",
+      "disqualifyReason": "Window focus lost. Automatic zero applied.",
+      "violations": [
+        {
+          "reason": "Window focus lost. Automatic zero applied.",
+          "at": "2026-04-22T15:00:10.490Z"
+        }
+      ],
+      "lastHeartbeatAt": "2026-04-22T15:00:07.296Z"
     }
   ]
 }
