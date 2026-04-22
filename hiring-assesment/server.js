@@ -9,6 +9,8 @@ const DATA_DIR = path.join(__dirname, 'data');
 const DB_PATH = path.join(DATA_DIR, 'submissions.json');
 const ATTEMPT_DURATION_MINUTES = 60;
 const RETAKE_LOCK_DAYS = 30;
+require('dotenv').config();
+
 
 app.use(express.json({ limit: '2mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -677,6 +679,59 @@ app.get('/api/my-submissions', (req, res) => {
 
   res.json(payload);
 });
+
+app.post('/api/evaluate', async (req, res) => {
+  if (!answer || typeof answer !== "string") {
+  return res.status(400).json({ error: "answer is required" });
+}
+
+  try {
+    const API_KEY = process.env.KEY;
+
+    const url =
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+    const aiRes = await fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `Evaluate this answer and return structured feedback:\n\n${answer}`
+              }
+            ]
+          }
+        ]
+      })
+    });
+
+    if (!aiRes.ok) {
+      return res.status(aiRes.status).json(await aiRes.json());
+    }
+
+    const data = await aiRes.json();
+    res.json(data);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+  if (!process.env.KEY) {
+  throw new Error("Missing Gemini API key in .env file");
+}
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/html/index.html'));
+});
+
+app.get('/start', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/html/start.html'));
+});
+
 
 ensureDb();
 app.listen(PORT, () => {
