@@ -478,13 +478,13 @@
       "lastHeartbeatAt": "2026-04-22T15:00:07.296Z"
     },
     {
-      "id": "8fe67530-40be-4634-971f-9cedb4e70467",
-      "candidateCode": "C-ABD222",
-      "nric": "S1234568D",
+      "id": "988cf2b1-9fb1-4706-85c1-6b8bf8a83bc9",
+      "candidateCode": "C-71A483",
+      "nric": "T0671198B",
       "name": "",
       "email": "",
-      "role": "data_analyst",
-      "roleLabel": "Data Analyst",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
       "answer": "",
       "scores": {
         "total": 0,
@@ -495,92 +495,17 @@
           "Assessment attempt recorded"
         ],
         "weaknesses": [
-          "Window focus lost. Automatic zero applied."
+          "Assessment expired before submission."
         ]
       },
-      "startedAt": "2026-04-22T17:32:07.494Z",
-      "completedAt": "2026-04-22T17:32:33.497Z",
-      "createdAt": "2026-04-22T17:32:07.494Z",
-      "expiresAt": "2026-04-22T18:32:07.494Z",
-      "status": "disqualified",
-      "disqualifyReason": "Window focus lost. Automatic zero applied.",
-      "violations": [
-        {
-          "reason": "Window focus lost. Automatic zero applied.",
-          "at": "2026-04-22T17:32:33.496Z"
-        }
-      ],
-      "lastHeartbeatAt": "2026-04-22T17:32:32.634Z"
-    },
-    {
-      "id": "940a5edf-e03e-4da3-aba4-4aa7cdab4544",
-      "candidateCode": "C-33BD70",
-      "nric": "S1234568D",
-      "name": "",
-      "email": "",
-      "role": "product_intern",
-      "roleLabel": "Product Intern",
-      "answer": "",
-      "scores": {
-        "total": 0,
-        "accuracy": 0,
-        "reasoning": 0,
-        "clarity": 0,
-        "strengths": [
-          "Assessment attempt recorded"
-        ],
-        "weaknesses": [
-          "Window focus lost. Automatic zero applied."
-        ]
-      },
-      "startedAt": "2026-04-22T17:41:20.801Z",
-      "completedAt": "2026-04-22T17:47:18.834Z",
-      "createdAt": "2026-04-22T17:41:20.801Z",
-      "expiresAt": "2026-04-22T18:41:20.801Z",
-      "status": "disqualified",
-      "disqualifyReason": "Window focus lost. Automatic zero applied.",
-      "violations": [
-        {
-          "reason": "Window focus lost. Automatic zero applied.",
-          "at": "2026-04-22T17:47:18.834Z"
-        }
-      ],
-      "lastHeartbeatAt": "2026-04-22T17:47:16.036Z"
-    },
-    {
-      "id": "1f35881d-5e93-4485-805a-afacd237337a",
-      "candidateCode": "C-5BB8D6",
-      "nric": "S1234569D",
-      "name": "",
-      "email": "",
-      "role": "data_analyst",
-      "roleLabel": "Data Analyst",
-      "answer": "subscription reminder.",
-      "scores": {
-        "total": 0,
-        "accuracy": 0,
-        "reasoning": 0,
-        "clarity": 0,
-        "strengths": [
-          "Good baseline submission"
-        ],
-        "weaknesses": [
-          "Missed key task requirements",
-          "Reasoning needs more depth",
-          "Answer structure can be clearer"
-        ]
-      },
-      "startedAt": "2026-04-22T18:09:22.039Z",
-      "completedAt": "2026-04-22T18:14:44.948Z",
-      "createdAt": "2026-04-22T18:09:22.039Z",
-      "expiresAt": "2026-04-22T19:09:22.039Z",
-      "status": "submitted",
-      "disqualifyReason": null,
+      "startedAt": "2026-04-22T17:00:16.205Z",
+      "completedAt": "2026-04-23T05:30:02.667Z",
+      "createdAt": "2026-04-22T17:00:16.205Z",
+      "expiresAt": "2026-04-22T18:00:16.205Z",
+      "status": "expired",
+      "disqualifyReason": "Assessment expired before submission.",
       "violations": [],
-      "lastHeartbeatAt": "2026-04-22T18:10:42.052Z"
+      "lastHeartbeatAt": "2026-04-22T17:00:21.412Z"
     }
-  ],
-  "shortlisted": [
-    "0e0d25a1-cf6a-4d4e-93e0-d4cd4b8cad3c"
   ]
 }

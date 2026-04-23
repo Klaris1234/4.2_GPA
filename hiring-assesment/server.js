@@ -7,13 +7,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_PATH = path.join(DATA_DIR, 'submissions.json');
+const SINGPASS_USERS_PATH = path.join(DATA_DIR, 'singpass-users.json');
 const ATTEMPT_DURATION_MINUTES = 60;
 const RETAKE_LOCK_DAYS = 30;
+const QR_SESSION_TTL_MS = 90 * 1000;
 require('dotenv').config();
 
 
 app.use(express.json({ limit: '2mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+const qrSessions = new Map();
 
 const TASK_LIBRARY = {
   data_analyst: {
@@ -138,6 +141,16 @@ function ensureDb() {
 function readDb() {
   ensureDb();
   return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+}
+
+function readSingpassUsers() {
+  if (!fs.existsSync(SINGPASS_USERS_PATH)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(SINGPASS_USERS_PATH, 'utf-8'));
+    return Array.isArray(parsed.users) ? parsed.users : [];
+  } catch {
+    return [];
+  }
 }
 
 function writeDb(data) {
@@ -294,6 +307,21 @@ function gradeFromScore(score) {
   return 'F';
 }
 
+function getQrSessionStatus(session) {
+  if (!session) return 'missing';
+  if (Date.now() > session.expiresAt) return 'expired';
+  return session.status;
+}
+
+function pruneQrSessions() {
+  const now = Date.now();
+  for (const [sessionId, session] of qrSessions.entries()) {
+    if (session.expiresAt < now || session.status === 'approved') {
+      qrSessions.delete(sessionId);
+    }
+  }
+}
+
 function finalizedAttempts(db) {
   return (db.attempts || []).filter(attempt => ['submitted', 'disqualified', 'expired', 'abandoned'].includes(attempt.status) && attempt.scores);
 }
@@ -406,6 +434,86 @@ app.get('/api/roles', (req, res) => {
     title: value.title
   }));
   res.json(roles);
+});
+
+app.post('/api/singpass-login', (req, res) => {
+  const singpassId = String(req.body?.singpassId || '').trim().toLowerCase();
+  const password = String(req.body?.password || '');
+
+  if (!singpassId || !password) {
+    return res.status(400).json({ error: 'singpassId and password are required' });
+  }
+
+  const users = readSingpassUsers();
+  const matched = users.find(user =>
+    String(user.singpassId || '').trim().toLowerCase() === singpassId
+  );
+
+  if (!matched || String(matched.password || '') !== password) {
+    return res.status(401).json({ error: 'Invalid Singpass ID or password.' });
+  }
+
+  const nric = normalizeNric(matched.nric);
+  if (!isValidNric(nric)) {
+    return res.status(500).json({ error: 'Configured account NRIC is invalid.' });
+  }
+
+  return res.json({
+    singpassId: matched.singpassId,
+    nric
+  });
+});
+
+app.get('/api/qr-session/new', (req, res) => {
+  pruneQrSessions();
+
+  const sessionId = crypto.randomUUID();
+  const expiresAt = Date.now() + QR_SESSION_TTL_MS;
+  const approveUrl = `${req.protocol}://${req.get('host')}/api/qr-session/approve/${sessionId}`;
+
+  qrSessions.set(sessionId, {
+    sessionId,
+    createdAt: Date.now(),
+    expiresAt,
+    status: 'pending'
+  });
+
+  res.json({ sessionId, approveUrl, expiresAt });
+});
+
+app.get('/api/qr-session/status/:sessionId', (req, res) => {
+  const session = qrSessions.get(req.params.sessionId);
+  const status = getQrSessionStatus(session);
+
+  if (status === 'missing') {
+    return res.status(404).json({ status: 'missing' });
+  }
+
+  if (status === 'expired') {
+    qrSessions.delete(req.params.sessionId);
+    return res.json({ status: 'expired' });
+  }
+
+  return res.json({ status });
+});
+
+app.get('/api/qr-session/approve/:sessionId', (req, res) => {
+  const session = qrSessions.get(req.params.sessionId);
+  const status = getQrSessionStatus(session);
+
+  if (status === 'missing') {
+    return res.status(404).send('QR session not found. Please generate a new QR code.');
+  }
+
+  if (status === 'expired') {
+    qrSessions.delete(req.params.sessionId);
+    return res.status(410).send('This QR code has expired. Please generate a new one.');
+  }
+
+  session.status = 'approved';
+  session.approvedAt = Date.now();
+
+  return res.send('Login approved. You can return to the browser that showed the QR code.');
 });
 
 app.get('/api/task/:role', (req, res) => {
@@ -800,7 +908,7 @@ app.post('/api/evaluate', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/html/index.html'));
+  res.sendFile(path.join(__dirname, 'public/html/login.html'));
 });
 
 app.get('/start', (req, res) => {

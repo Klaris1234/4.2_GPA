@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "singpassId": "sp_nadia_tan",
+      "nric": "S5182746H",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_ryan_lim",
+      "nric": "T2749615K",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_amira_lee",
+      "nric": "S8361952D",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_joel_ng",
+      "nric": "T6293471M",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_hannah_ong",
+      "nric": "S7052184J",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_darren_choo",
+      "nric": "T3816409Q",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_melissa_goh",
+      "nric": "F4927153N",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_kai_yeo",
+      "nric": "G1639587R",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_sherlyn_low",
+      "nric": "F8503721P",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "sp_ethan_teo",
+      "nric": "G7248096U",
+      "password": "Pass@1234"
+    },
+    {
+      "singpassId": "nandithabvs",
+      "nric": "T0671198C",
+      "password": "Pass@1234"
+    }
+  ]
+}
