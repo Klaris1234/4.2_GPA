@@ -161,6 +161,19 @@ textarea {
   color: var(--text);
 }
 
+input.locked-input,
+input[readonly] {
+  background: #e4e7eb;
+  color: #5b6470;
+  cursor: not-allowed;
+  border-color: #a3acb8;
+}
+
+input.locked-input:focus,
+input[readonly]:focus {
+  outline: none;
+}
+
 textarea {
   resize: vertical;
   min-height: 300px;
@@ -176,11 +189,15 @@ button,
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
+  width: 200px;
+
+
 }
 
 button:hover,
 .primary-link:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.35);
 }
 
 button:disabled {

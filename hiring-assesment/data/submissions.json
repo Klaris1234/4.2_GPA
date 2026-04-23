@@ -476,6 +476,36 @@
         }
       ],
       "lastHeartbeatAt": "2026-04-22T15:00:07.296Z"
+    },
+    {
+      "id": "988cf2b1-9fb1-4706-85c1-6b8bf8a83bc9",
+      "candidateCode": "C-71A483",
+      "nric": "T0671198B",
+      "name": "",
+      "email": "",
+      "role": "marketing_associate",
+      "roleLabel": "Marketing Associate",
+      "answer": "",
+      "scores": {
+        "total": 0,
+        "accuracy": 0,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Assessment attempt recorded"
+        ],
+        "weaknesses": [
+          "Assessment expired before submission."
+        ]
+      },
+      "startedAt": "2026-04-22T17:00:16.205Z",
+      "completedAt": "2026-04-23T05:30:02.667Z",
+      "createdAt": "2026-04-22T17:00:16.205Z",
+      "expiresAt": "2026-04-22T18:00:16.205Z",
+      "status": "expired",
+      "disqualifyReason": "Assessment expired before submission.",
+      "violations": [],
+      "lastHeartbeatAt": "2026-04-22T17:00:21.412Z"
     }
   ]
 }

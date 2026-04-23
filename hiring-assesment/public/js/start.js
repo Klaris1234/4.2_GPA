@@ -1,6 +1,14 @@
 import { api, getSession, setSession, normalizeNric, isValidNric } from './app.js';
 
 async function initStartPage() {
+  const query = new URLSearchParams(window.location.search);
+  const queryNric = normalizeNric(query.get('nric'));
+  const queryLocked = query.get('locked') === '1';
+  if (queryLocked && isValidNric(queryNric)) {
+    setSession({ nric: queryNric, identityLocked: true });
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+
   const roleSelect = document.getElementById('roleSelect');
   const nricInput = document.getElementById('nricInput');
   const eligibilityBox = document.getElementById('eligibilityBox');
@@ -35,18 +43,30 @@ async function initStartPage() {
   // RESTORE SESSION
   // =====================
   const session = getSession();
+  const sessionNric = normalizeNric(session.nric);
+  const lockedNric = session.identityLocked && isValidNric(sessionNric)
+    ? sessionNric
+    : '';
 
-  if (session.nric) nricInput.value = session.nric;
+  if (isValidNric(sessionNric)) nricInput.value = sessionNric;
   if (session.role) roleSelect.value = session.role;
 
+  if (lockedNric) {
+    nricInput.value = lockedNric;
+    nricInput.readOnly = true;
+    nricInput.classList.add('locked-input');
+    nricInput.title = 'NRIC/FIN is locked from your login identity.';
+    eligibilityBox.textContent = 'NRIC/FIN is auto-filled from your login and cannot be changed here.';
+  }
+
   function persist() {
-    const nric = normalizeNric(nricInput.value);
+    const nric = lockedNric || normalizeNric(nricInput.value);
     const role = roleSelect.value;
 
     const roleLabel =
       roles.find(r => r.key === role)?.roleLabel || role;
 
-    setSession({ nric, role, roleLabel });
+    setSession({ nric, role, roleLabel, identityLocked: Boolean(lockedNric) });
 
     return { nric, role };
   }
