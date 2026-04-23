@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employer Dashboard</title>
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+
+  <div class="shell">
+
+    <div class="hero-simple">
+      <div class="hero-card">
+        <p class="eyebrow">Recruiter View</p>
+        <h1>Talent Dashboard</h1>
+        <p class="muted">
+          Review top candidate submissions ranked by performance. Shortlist strong applicants instantly.
+        </p>
+      </div>
+    </div>
+
+    <div class="metric-grid space-top">
+      <div class="metric-card">
+        <span>Total Candidates</span>
+        <strong id="totalCount">0</strong>
+      </div>
+      <div class="metric-card">
+        <span>Top Score</span>
+        <strong id="topScore">-</strong>
+      </div>
+      <div class="metric-card">
+        <span>Avg Score</span>
+        <strong id="avgScore">-</strong>
+      </div>
+    </div>
+
+    <div class="panel space-top">
+      <h2>Top Candidates</h2>
+      <div id="candidateList" class="list-stack"></div>
+    </div>
+
+    <div class="panel space-top">
+      <h2>⭐ Shortlisted Candidates</h2>
+      <div id="shortlistedList" class="list-stack"></div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/js/employer.js"></script>
+
+</body>
+</html>
