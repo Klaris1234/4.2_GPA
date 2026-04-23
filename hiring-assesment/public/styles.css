@@ -364,6 +364,73 @@ button:disabled {
   font-size: 28px;
 }
 
+/* Candidate Card */
+.candidate-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+/* Header */
+.candidate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.candidate-header h3 {
+  margin: 0;
+}
+
+/* Score Badge */
+.score-badge {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
+.score-good {
+  background: rgba(31, 122, 79, 0.15);
+  color: var(--good);
+}
+
+.score-mid {
+  background: rgba(168, 104, 17, 0.15);
+  color: var(--warn);
+}
+
+.score-bad {
+  background: rgba(179, 58, 47, 0.15);
+  color: var(--danger);
+}
+
+/* Answer */
+.answer-box {
+  margin: 12px 0;
+  padding: 12px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+/* Actions */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.shortlist-btn {
+  background: var(--accent);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .grid-main,
   .assessment-layout,

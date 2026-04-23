@@ -120,6 +120,11 @@ function ensureDb() {
     changed = true;
   }
 
+  if (!parsed.shortlisted) {
+    parsed.shortlisted = [];
+    changed = true;
+  }
+
   for (const attempt of parsed.attempts) {
     const normalized = normalizeNric(attempt.nric);
     if (attempt.nric !== normalized) {
@@ -788,7 +793,77 @@ app.get('/api/my-submissions', (req, res) => {
   res.json(payload);
 });
 
+app.get('/api/employer-feed', (req, res) => {
+  const db = readDb();
+
+  const valid = (db.attempts || [])
+    .filter(a =>
+      a.status === 'submitted' &&
+      a.scores &&
+      typeof a.scores.total === 'number' &&
+      a.scores.total >= 40 &&                 // remove low quality
+      a.answer &&
+      a.answer.trim().length > 30             // remove junk answers
+    );
+
+  valid.sort((a, b) => b.scores.total - a.scores.total);
+
+  const result = valid.slice(0, 10).map(a => ({
+    id: a.id,                                // for shortlist
+    candidateCode: a.candidateCode,
+    role: a.roleLabel,
+    score: a.scores.total,
+    grade: gradeFromScore(a.scores.total),
+    answer: a.answer,
+    submittedAt: a.completedAt
+  }));
+
+  res.json(result);
+});
+
+app.post('/api/shortlist', (req, res) => {
+  const { attemptId } = req.body;
+
+  if (!attemptId) {
+    return res.status(400).json({ error: 'attemptId is required' });
+  }
+
+  const db = readDb();
+
+  const attempt = db.attempts.find(a => a.id === attemptId);
+  if (!attempt) {
+    return res.status(404).json({ error: 'Candidate not found' });
+  }
+
+  if (!db.shortlisted.includes(attemptId)) {
+    db.shortlisted.push(attemptId);
+  }
+
+  writeDb(db);
+
+  res.json({ message: 'Candidate shortlisted' });
+});
+
+app.get('/api/shortlisted', (req, res) => {
+  const db = readDb();
+
+  const shortlisted = (db.shortlisted || [])
+    .map(id => db.attempts.find(a => a.id === id))
+    .filter(Boolean)
+    .map(a => ({
+      id: a.id,
+      candidateCode: a.candidateCode,
+      role: a.roleLabel,
+      score: a.scores.total,
+      grade: gradeFromScore(a.scores.total),
+      answer: a.answer
+    }));
+
+  res.json(shortlisted);
+});
+
 app.post('/api/evaluate', async (req, res) => {
+  const { answer } = req.body;
   if (!answer || typeof answer !== "string") {
   return res.status(400).json({ error: "answer is required" });
 }
@@ -838,6 +913,10 @@ app.get('/', (req, res) => {
 
 app.get('/start', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html/start.html'));
+});
+
+app.get('/employer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/html/employer.html'));
 });
 
 
