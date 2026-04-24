@@ -751,6 +751,14 @@ app.post('/api/submit-assessment', (req, res) => {
     const rule = evaluateSubmission(attempt.role, cleanAnswer);
 
     if (aiScores) {
+      // merge rule + AI into new dimensions
+      const merged = {
+        accuracy: Math.round(rule.accuracy * 0.7 + aiScores.correctness * 0.3),
+        reasoning: Math.round(rule.reasoning * 0.6 + aiScores.reasoning * 0.4),
+        clarity: Math.round(rule.clarity * 0.5 + aiScores.clarity * 0.5)
+      };
+
+      // compute hybrid total (your existing logic)
       const aiAvg =
         (aiScores.correctness +
           aiScores.reasoning +
@@ -758,12 +766,12 @@ app.post('/api/submit-assessment', (req, res) => {
           aiScores.creativity) / 4;
 
       let hybridTotal =
-      rule.total * 0.6 +
-      aiAvg * 0.25 +
-      aiScores.specificity * 0.1 -
-      aiScores.aiLikelihood * 0.05;
+        rule.total * 0.6 +
+        aiAvg * 0.25 +
+        aiScores.specificity * 0.1 -
+        aiScores.aiLikelihood * 0.05;
 
-    hybridTotal = Math.round(hybridTotal);
+      hybridTotal = Math.round(hybridTotal);
 
       if (aiScores.aiLikelihood > 80) hybridTotal -= 5;
       if (aiScores.aiLikelihood > 90) hybridTotal -= 10;
@@ -771,12 +779,23 @@ app.post('/api/submit-assessment', (req, res) => {
 
       hybridTotal = Math.max(0, Math.min(100, hybridTotal));
 
+      // FINAL SCORES OBJECT
       scores = {
-        ...rule,
-        ai: aiScores,
-        total: hybridTotal
-      };
-    } else {
+      total: hybridTotal,
+      accuracy: merged.accuracy,
+      reasoning: merged.reasoning,
+      clarity: merged.clarity,
+      strengths: buildStrengths(merged),
+      weaknesses: buildWeaknesses(merged, aiScores.summary),
+
+      aiLikelihood: aiScores.aiLikelihood,
+      specificity: aiScores.specificity,
+      creativity: aiScores.creativity,
+      summary: aiScores.summary,
+
+      ai: aiScores 
+    };
+        } else {
       scores = rule;
     }
   }

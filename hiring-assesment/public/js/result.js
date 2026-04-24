@@ -75,7 +75,7 @@ async function initResultPage() {
 
 
 function resultMarkup(result) {
-  const breakdown = result.scoreBreakdown || { accuracy: 0, reasoning: 0, clarity: 0, strengths: [], weaknesses: [] };
+  const breakdown = result.scoreBreakdown || { accuracy: 0, reasoning: 0, clarity: 0, strengths: [], weaknesses: []};
   return `
     <div class="status-box ${result.status === 'submitted' ? 'success' : 'warning'}">Status: ${escapeHtml(result.status)}</div>
     <p><strong>Candidate code:</strong> ${escapeHtml(result.candidateCode || '-')}</p>
@@ -101,9 +101,15 @@ function resultMarkup(result) {
       <div class="metric-card"><span>Accuracy</span><strong>${breakdown.accuracy}</strong></div>
       <div class="metric-card"><span>Reasoning</span><strong>${breakdown.reasoning}</strong></div>
     </div>
-    <div class="metric-grid single-row-grid">
+    <div class="metric-grid">
       <div class="metric-card"><span>Clarity</span><strong>${breakdown.clarity}</strong></div>
+      <div class="metric-card"><span>AI Likelihood</span><strong>${breakdown.aiLikelihood}</strong></div>
+      <div class="metric-card"><span>Specificity</span><strong>${breakdown.specificity}</strong></div>
     </div>
+     <div class="metric-grid">
+      <div class="metric-card"><span>Creativity</span><strong>${breakdown.creativity}</strong></div>
+    </div>
+    
     ${result.disqualifyReason ? `<p class="danger"><strong>Reason:</strong> ${escapeHtml(result.disqualifyReason)}</p>` : ''}
     <div class="rules-box">
       <strong>Strengths</strong>
@@ -113,6 +119,12 @@ function resultMarkup(result) {
       <strong>Weaknesses</strong>
       <ul class="rules-list">${(breakdown.weaknesses || []).map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
     </div>
+    ${breakdown.summary ? `
+  <div class="rules-box space-top">
+    <strong>AI Feedback</strong>
+    <p>${escapeHtml(breakdown.summary)}</p>
+  </div>
+` : ''}
   `;
 }
 
