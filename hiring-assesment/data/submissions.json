@@ -506,6 +506,47 @@
       "disqualifyReason": "Assessment expired before submission.",
       "violations": [],
       "lastHeartbeatAt": "2026-04-22T17:00:21.412Z"
+    },
+    {
+      "id": "0081664c-3b85-4caf-aca5-bda0828d3627",
+      "candidateCode": "C-8927A8",
+      "nric": "S9838464B",
+      "name": "",
+      "email": "",
+      "role": "product_intern",
+      "roleLabel": "Product Intern",
+      "answer": "subscription reminder, as the impact is high, tocket_relevance is high while effort is low",
+      "scores": {
+        "total": 27,
+        "accuracy": 35,
+        "reasoning": 0,
+        "clarity": 0,
+        "strengths": [
+          "Good baseline submission"
+        ],
+        "weaknesses": [
+          "Reasoning needs more depth",
+          "Answer structure can be clearer"
+        ],
+        "ai": {
+          "correctness": 40,
+          "reasoning": 50,
+          "clarity": 40,
+          "creativity": 10,
+          "aiLikelihood": 5,
+          "specificity": 20,
+          "summary": "The candidate correctly identified the priority feature using the provided data but failed to address the risk and launch metric requirements. The response is incomplete and contains a typo."
+        }
+      },
+      "startedAt": "2026-04-24T11:22:55.069Z",
+      "completedAt": "2026-04-24T11:24:04.229Z",
+      "createdAt": "2026-04-24T11:22:55.069Z",
+      "expiresAt": "2026-04-24T12:22:55.069Z",
+      "status": "submitted",
+      "disqualifyReason": null,
+      "violations": [],
+      "lastHeartbeatAt": "2026-04-24T11:24:00.208Z"
     }
-  ]
+  ],
+  "shortlisted": []
 }

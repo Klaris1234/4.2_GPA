@@ -174,6 +174,52 @@ function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
+async function callGemini(prompt) {
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+  const API_KEY = process.env.KEY;
+
+  let lastError;
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const aiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.3
+          }
+        })
+        }
+      );
+
+      const data = await aiRes.json();
+
+      if (!aiRes.ok) {
+        console.log("Gemini error:", data);
+
+        if (aiRes.status === 503) {
+          await sleep(500 * attempt); // exponential backoff
+          continue;
+        }
+
+        throw new Error(data?.error?.message || "Gemini API error");
+      }
+
+      return data; // ✅ THIS WAS MISSING
+    } catch (err) {
+      lastError = err;
+      console.log(`Retrying Gemini... attempt ${attempt}`);
+      await sleep(500 * attempt);
+    }
+  }
+
+  throw lastError || new Error("Gemini failed after retries");
+}
+
 function buildStrengths(scores) {
   const strengths = [];
   if (scores.accuracy >= 40) strengths.push('Strong task accuracy');
@@ -681,7 +727,7 @@ app.post('/api/violation', (req, res) => {
 });
 
 app.post('/api/submit-assessment', (req, res) => {
-  const { attemptId, answer } = req.body || {};
+  const { attemptId, answer, aiScores } = req.body || {};
   if (!attemptId) {
     return res.status(400).json({ error: 'attemptId is required' });
   }
@@ -697,9 +743,43 @@ app.post('/api/submit-assessment', (req, res) => {
   }
 
   const cleanAnswer = String(answer || '').trim();
-  const scores = cleanAnswer
-    ? evaluateSubmission(attempt.role, cleanAnswer)
-    : buildZeroScore('No answer submitted.');
+  let scores;
+
+  if (!cleanAnswer) {
+    scores = buildZeroScore('No answer submitted.');
+  } else {
+    const rule = evaluateSubmission(attempt.role, cleanAnswer);
+
+    if (aiScores) {
+      const aiAvg =
+        (aiScores.correctness +
+          aiScores.reasoning +
+          aiScores.clarity +
+          aiScores.creativity) / 4;
+
+      let hybridTotal =
+      rule.total * 0.6 +
+      aiAvg * 0.25 +
+      aiScores.specificity * 0.1 -
+      aiScores.aiLikelihood * 0.05;
+
+    hybridTotal = Math.round(hybridTotal);
+
+      if (aiScores.aiLikelihood > 80) hybridTotal -= 5;
+      if (aiScores.aiLikelihood > 90) hybridTotal -= 10;
+      if (aiScores.specificity < 30) hybridTotal -= 5;
+
+      hybridTotal = Math.max(0, Math.min(100, hybridTotal));
+
+      scores = {
+        ...rule,
+        ai: aiScores,
+        total: hybridTotal
+      };
+    } else {
+      scores = rule;
+    }
+  }
 
   attempt.answer = cleanAnswer;
   attempt.scores = scores;
@@ -809,13 +889,12 @@ app.get('/api/employer-feed', (req, res) => {
   valid.sort((a, b) => b.scores.total - a.scores.total);
 
   const result = valid.slice(0, 10).map(a => ({
-    id: a.id,                                // for shortlist
+    id: a.id,
     candidateCode: a.candidateCode,
     role: a.roleLabel,
-    score: a.scores.total,
-    grade: gradeFromScore(a.scores.total),
-    answer: a.answer,
-    submittedAt: a.completedAt
+    score: a.scores?.total ?? 0,
+    grade: gradeFromScore(a.scores?.total ?? 0),
+    answer: a.answer
   }));
 
   res.json(result);
@@ -851,60 +930,117 @@ app.get('/api/shortlisted', (req, res) => {
     .map(id => db.attempts.find(a => a.id === id))
     .filter(Boolean)
     .map(a => ({
-      id: a.id,
-      candidateCode: a.candidateCode,
-      role: a.roleLabel,
-      score: a.scores.total,
-      grade: gradeFromScore(a.scores.total),
-      answer: a.answer
-    }));
+    id: a.id,
+    candidateCode: a.candidateCode,
+    role: a.roleLabel,
+    score: a.scores?.total ?? 0,
+    grade: gradeFromScore(a.scores?.total ?? 0),
+    answer: a.answer
+  }));
 
   res.json(shortlisted);
 });
 
 app.post('/api/evaluate', async (req, res) => {
-  const { answer } = req.body;
+  const { answer, role, instructions, dataset } = req.body;
+
   if (!answer || typeof answer !== "string") {
-  return res.status(400).json({ error: "answer is required" });
-}
+    return res.status(400).json({ error: "answer is required" });
+  }
 
   try {
     const API_KEY = process.env.KEY;
 
-    const url =
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    const prompt = `
+    You are evaluating a candidate's answer.
 
-    const aiRes = await fetch(url, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `Evaluate this answer and return structured feedback:\n\n${answer}`
-              }
-            ]
-          }
-        ]
-      })
-    });
+    ROLE:
+    ${role}
 
-    if (!aiRes.ok) {
-      return res.status(aiRes.status).json(await aiRes.json());
+    TASK:
+    ${instructions}
+
+    DATASET:
+    ${JSON.stringify(dataset, null, 2)}
+
+    CANDIDATE ANSWER:
+    ${answer}
+
+    Score from 0–100:
+    - correctness (did they answer the task correctly?)
+    - reasoning (quality of thinking)
+    - clarity (structured, readable)
+    - creativity (insightfulness)
+
+    Also estimate:
+    - aiLikelihood (0–100)
+    - specificity (0–100)
+
+    Return ONLY valid JSON.
+    No markdown.
+    No backticks.
+    No explanation.
+    No extra text before or after.
+    {
+      "correctness": number,
+      "reasoning": number,
+      "clarity": number,
+      "creativity": number,
+      "aiLikelihood": number,
+      "specificity": number,
+      "summary": "short feedback"
     }
 
-    const data = await aiRes.json();
-    res.json(data);
+
+
+`;
+
+  const data = await callGemini(prompt);
+
+    const rawText =
+      data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    
+    let parsed;
+
+    try {
+      const rawText =
+        data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!rawText) {
+        throw new Error("Empty AI response");
+      }
+
+      parsed = JSON.parse(rawText);
+
+    } catch (e) {
+      console.log("FULL AI RESPONSE:\n", JSON.stringify(data, null, 2));
+
+      parsed = {
+        correctness: 50,
+        reasoning: 50,
+        clarity: 50,
+        creativity: 50,
+        aiLikelihood: 50,
+        specificity: 50,
+        summary: "AI response parsing failed"
+      };
+    }
+    const clamp = (v) => Math.max(0, Math.min(100, Number(v) || 0));
+
+    res.json({
+      correctness: clamp(parsed.correctness),
+      reasoning: clamp(parsed.reasoning),
+      clarity: clamp(parsed.clarity),
+      creativity: clamp(parsed.creativity),
+      aiLikelihood: clamp(parsed.aiLikelihood),
+      specificity: clamp(parsed.specificity),
+      summary: parsed.summary || ""
+    });
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
-  if (!process.env.KEY) {
-  throw new Error("Missing Gemini API key in .env file");
-}
 });
 
 app.get('/', (req, res) => {

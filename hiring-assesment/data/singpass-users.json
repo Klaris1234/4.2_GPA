@@ -54,6 +54,11 @@
       "singpassId": "nandithabvs",
       "nric": "T0671198C",
       "password": "Pass@1234"
+    },
+    {
+      "singpassId": "test",
+      "nric": "S9838464B",
+      "password": "a"
     }
   ]
 }

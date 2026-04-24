@@ -9,6 +9,9 @@ import {
   reportViolation
 } from './app.js';
 
+let currentDataset = [];
+let currentInstructions = '';
+let currentRole = '';
 let heartbeatTimer = null;
 let countdownTimer = null;
 
@@ -32,6 +35,9 @@ async function initAssessmentPage() {
   try {
     const data = await api(`/api/assessment/${encodeURIComponent(session.attemptId)}`);
 
+    currentDataset = data.dataset;
+    currentInstructions = data.instructions;
+    currentRole = data.roleLabel;
     title.textContent = data.title;
     meta.textContent = `${data.roleLabel} | Candidate ${data.candidateCode} | ${data.nric}`;
     instructionsBox.textContent = data.instructions;
@@ -54,53 +60,57 @@ async function initAssessmentPage() {
     return;
   }
 
-  // ✅ FIXED: everything happens inside submit
   submitBtn.addEventListener('click', async () => {
-    submitBtn.disabled = true;
+  submitBtn.disabled = true;
 
-    try {
-      // 🔹 Step 1: Call AI evaluation
-      const aiResult = await api('/api/evaluate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answer: answerInput.value })
-      });
+  try {
+    const session = getSession();
 
-      // 🔹 Step 2: Compute score
-      const total = Math.round(
-        (aiResult.correctness +
-         aiResult.reasoning +
-         aiResult.clarity +
-         aiResult.creativity) / 4
-      );
+    const aiResult = await api('/api/evaluate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        answer: answerInput.value,
+        role: session.role, // ✅ FIXED
+        instructions: instructionsBox.textContent,
+        dataset: currentDataset
+      })
+    });
+    console.log("AI RESULT:", aiResult);
 
-      let fraudFlag = "OK";
+    const total = Math.round(
+      (aiResult.correctness +
+        aiResult.reasoning +
+        aiResult.clarity +
+        aiResult.creativity) / 4
+    );
 
-      if (aiResult.aiLikelihood > 80 && aiResult.specificity < 40) {
-        fraudFlag = "⚠️ Possible AI-generated / low originality";
-      }
+    let fraudFlag = "OK";
 
-      // 🔹 Step 3: Submit final result
-      await api('/api/submit-assessment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          attemptId: session.attemptId,
-          answer: answerInput.value,
-          score: total,
-          fraudFlag
-        })
-      });
-
-      stopTimers();
-
-      window.location.href = `result.html?attemptId=${encodeURIComponent(session.attemptId)}`;
-
-    } catch (error) {
-      submitBtn.disabled = false;
-      statusBox.innerHTML = `<span class="danger">${escapeHtml(error.message)}</span>`;
+    if (aiResult.aiLikelihood > 80 && aiResult.specificity < 40) {
+      fraudFlag = "⚠️ Possible AI-generated / low originality";
     }
-  });
+
+    await api('/api/submit-assessment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        attemptId: session.attemptId,
+        answer: answerInput.value,
+        aiScores: aiResult
+      })
+    });
+
+    stopTimers();
+
+    window.location.href = `result.html?attemptId=${encodeURIComponent(session.attemptId)}`;
+
+  } catch (error) {
+    submitBtn.disabled = false;
+    document.getElementById('assessmentStatusBox').innerHTML =
+      `<span class="danger">${escapeHtml(error.message)}</span>`;
+  }
+});
 }
 
 /* ---------------- LOCKDOWN ---------------- */
